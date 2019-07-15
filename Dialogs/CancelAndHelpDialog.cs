@@ -47,7 +47,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 {
                     case "help":
                     case "?":
-                        await innerDc.Context.SendActivityAsync($"Show Help 11111 ...", cancellationToken: cancellationToken);
+                        await innerDc.Context.SendActivityAsync($"Show Help 11111...", cancellationToken: cancellationToken);
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
 
                     case "cancel":
