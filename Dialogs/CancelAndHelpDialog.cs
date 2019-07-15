@@ -55,8 +55,8 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     case "quit":
                         await innerDc.Context.SendActivityAsync($"Cancelling", cancellationToken: cancellationToken);
                         return await innerDc.CancelAllDialogsAsync();
-                    case "待办":
-                    case "查询待办":
+                    case "寰呭姙":
+                    case "鏌ヨ寰呭姙":
                         TaskCenterService.QueryTasksSoapClient entity = new TaskCenterService.QueryTasksSoapClient(EndpointConfiguration.QueryTasksSoap);
                         var list = entity.QueryAsync("liuxiaoping3", 1, 5, null).Result.Items;
       
@@ -67,9 +67,9 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                         }
 
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
-                    case "日程":
-                    case "查询日程":
-                        await innerDc.Context.SendActivityAsync($"测试日程 https://www.baidu.com:", cancellationToken: cancellationToken);
+                    case "鏃ョ▼":
+                    case "鏌ヨ鏃ョ▼":
+                        await innerDc.Context.SendActivityAsync($"娴嬭瘯鏃ョ▼1  https://www.baidu.com:", cancellationToken: cancellationToken);
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
                 }
             }
