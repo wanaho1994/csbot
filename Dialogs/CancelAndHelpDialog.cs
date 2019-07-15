@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
+using static TaskCenterService.QueryTasksSoapClient;
 
 namespace Microsoft.BotBuilderSamples.Dialogs
 {
@@ -56,7 +57,15 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                         return await innerDc.CancelAllDialogsAsync();
                     case "待办":
                     case "查询待办":
-                        await innerDc.Context.SendActivityAsync($"测试待办 https://www.baidu.com:", cancellationToken: cancellationToken);
+                        TaskCenterService.QueryTasksSoapClient entity = new TaskCenterService.QueryTasksSoapClient(EndpointConfiguration.QueryTasksSoap);
+                        var list = entity.QueryAsync("liuxiaoping3", 1, 5, null).Result.Items;
+      
+                        foreach (TaskCenterService.TW_TaskEntity item in list)
+                        {
+                           var str = item.Title + "  " + item.ActionUrl;
+                            await innerDc.Context.SendActivityAsync(str, cancellationToken: cancellationToken);
+                        }
+
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
                     case "日程":
                     case "查询日程":

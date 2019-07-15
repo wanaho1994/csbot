@@ -20,7 +20,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
         public MainDialog(IConfiguration configuration, ILogger<MainDialog> logger)
             : base(nameof(MainDialog))
         {
-            Configuration = configuration;
+             Configuration = configuration;
             Logger = logger;
 
             AddDialog(new TextPrompt(nameof(TextPrompt)));
