@@ -47,20 +47,20 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 {
                     case "help":
                     case "?":
-                        await innerDc.Context.SendActivityAsync($"Show Help...", cancellationToken: cancellationToken);
+                        await innerDc.Context.SendActivityAsync($"Show Help 1111 ...", cancellationToken: cancellationToken);
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
 
                     case "cancel":
                     case "quit":
                         await innerDc.Context.SendActivityAsync($"Cancelling", cancellationToken: cancellationToken);
                         return await innerDc.CancelAllDialogsAsync();
-                    case "待办":
-                    case "查询待办":
-                        await innerDc.Context.SendActivityAsync($"测试待办 https://www.baidu.com:", cancellationToken: cancellationToken);
+                    case "寰呭姙":
+                    case "鏌ヨ寰呭姙":
+                        await innerDc.Context.SendActivityAsync($"娴嬭瘯寰呭姙 https://www.baidu.com:", cancellationToken: cancellationToken);
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
-                    case "日程":
-                    case "查询日程":
-                        await innerDc.Context.SendActivityAsync($"测试日程 https://www.baidu.com:", cancellationToken: cancellationToken);
+                    case "鏃ョ▼":
+                    case "鏌ヨ鏃ョ▼":
+                        await innerDc.Context.SendActivityAsync($"娴嬭瘯鏃ョ▼ https://www.baidu.com:", cancellationToken: cancellationToken);
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
                 }
             }
