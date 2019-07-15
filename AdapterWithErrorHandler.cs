@@ -23,6 +23,7 @@ namespace Microsoft.BotBuilderSamples
                 await turnContext.SendActivityAsync("Sorry, it looks like something went wrong.");
 
                 if (conversationState != null)
+
                 {
                     try
                     {
