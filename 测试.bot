@@ -1,0 +1,19 @@
+{
+    "name": "æµ‹è¯•",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "86730276-4bd0-4a36-bfc2-8c801b4b08a1",
+            "appPassword": "=K@PjN%/#Pa@n)>d+{!;B]cNJV1II(1",
+            "channelService": "https://botframework.azure.us",
+            "endpoint": "http://localhost:3978/api/messages",
+            "id": "fd49ca80-a37a-11e9-914c-896f2ff893ce",
+            "name": "http://localhost:3978/api/messages"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "path": "E:\\bot\\测试.bot",
+    "overrides": null
+}
