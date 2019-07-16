@@ -55,8 +55,8 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     case "quit":
                         await innerDc.Context.SendActivityAsync($"Cancelling", cancellationToken: cancellationToken);
                         return await innerDc.CancelAllDialogsAsync();
-                    case "待办":
-                    case "查询待办":
+                    case "寰呭姙":
+                    case "鏌ヨ寰呭姙":
                         TaskCenterService.ServiceSoapClient entity = new TaskCenterService.ServiceSoapClient(EndpointConfiguration.ServiceSoap);
 
                         var list = entity.QueryDoneTasksAsync("liuxiaoping3","Password01!", 1, 5).Result.Items;
@@ -68,9 +68,9 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                         }
 
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
-                    case "日程":
-                    case "查询日程":
-                        await innerDc.Context.SendActivityAsync($"测试日程1 http://wuye.ceair.com:8087/PortalEx/Refresh?IframeId=2b08c379-5665-4573-b390-e256cbca4ed2&WebPartCode=DHWY_Calendar&IsWrapindiv=false&nocache=0.1731581676535483:", cancellationToken: cancellationToken);
+                    case "鏃ョ▼":
+                    case "鏌ヨ鏃ョ▼":
+                        await innerDc.Context.SendActivityAsync($"娴嬭瘯鏃ョ▼1  http://wuye.ceair.com:8087/PortalEx/Refresh?IframeId=2b08c379-5665-4573-b390-e256cbca4ed2&WebPartCode=DHWY_Calendar&IsWrapindiv=false&nocache=0.1731581676535483:", cancellationToken: cancellationToken);
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
                 }
             }
