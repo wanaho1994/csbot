@@ -12,35 +12,39 @@ namespace TaskCenterService
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TaskCenterService.QueryTasksSoap")]
-    public interface QueryTasksSoap
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TaskCenterService.ServiceSoap")]
+    public interface ServiceSoap
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QueryDoneList", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QueryEncryptedBteUrl", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<TaskCenterService.SplitPageResultOfTW_TaskEntity> QueryDoneListAsync(string userUid, int pageIndex, int pageSize, string taskKindCode);
+        System.Threading.Tasks.Task<string> QueryEncryptedBteUrlAsync(string userUid, string pwd, string bteUrl);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Query", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SearchTasksNew", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<TaskCenterService.SplitPageResultOfTW_TaskEntity> QueryAsync(string userUid, int pageIndex, int pageSize, string taskKindCode);
+        System.Threading.Tasks.Task<TaskCenterService.MuMobileTaskEntityResult> SearchTasksNewAsync(string userUid, string pwd, int pageIndex, int pageSize, bool isToDoTask, string taskKindCode, string taskSource, string searchKey, string searchCreator, string startDay, string endDay);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QueryMergedToDoList", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SearchTasks", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<TaskCenterService.SplitPageResultOfTW_TaskEntity> QueryMergedToDoListAsync(string userUid, int pageIndex, int pageSize, string taskKindCode);
+        System.Threading.Tasks.Task<TaskCenterService.SearchTasksResponse> SearchTasksAsync(TaskCenterService.SearchTasksRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Search", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QueryToDoTasks", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<TaskCenterService.SearchResponse> SearchAsync(TaskCenterService.SearchRequest request);
+        System.Threading.Tasks.Task<TaskCenterService.MuMobileTaskEntityResult> QueryToDoTasksAsync(string userUid, string pwd, int pageIndex, int pageSize);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QueryDoneTasks", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<TaskCenterService.MuMobileTaskEntityResult> QueryDoneTasksAsync(string userUid, string pwd, int pageIndex, int pageSize);
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class SplitPageResultOfTW_TaskEntity
+    public partial class MuMobileTaskEntityResult
     {
         
-        private TW_TaskEntity[] itemsField;
+        private MuMobileTaskEntity[] itemsField;
         
         private int pageIndexField;
         
@@ -50,7 +54,7 @@ namespace TaskCenterService
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Order=0)]
-        public TW_TaskEntity[] Items
+        public MuMobileTaskEntity[] Items
         {
             get
             {
@@ -109,12 +113,12 @@ namespace TaskCenterService
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class TW_TaskEntity
+    public partial class MuMobileTaskEntity
     {
         
         private string titleField;
         
-        private string task_SourceField;
+        private string taskSourceField;
         
         private System.DateTime beginTimeField;
         
@@ -122,23 +126,13 @@ namespace TaskCenterService
         
         private string taskLevelField;
         
-        private int taskcenterIDField;
-        
-        private string clientTxSeqField;
-        
-        private string taskKindCodeField;
-        
-        private string appCodeField;
-        
         private string actionUrlField;
         
-        private string taskStepField;
+        private bool isSupportField;
         
-        private string creatorField;
+        private int supportTypeField;
         
-        private string creatorNameField;
-        
-        private string actionUrl2Field;
+        private string taskKindCodeField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -156,15 +150,15 @@ namespace TaskCenterService
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string Task_Source
+        public string TaskSource
         {
             get
             {
-                return this.task_SourceField;
+                return this.taskSourceField;
             }
             set
             {
-                this.task_SourceField = value;
+                this.taskSourceField = value;
             }
         }
         
@@ -212,62 +206,6 @@ namespace TaskCenterService
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public int TaskcenterID
-        {
-            get
-            {
-                return this.taskcenterIDField;
-            }
-            set
-            {
-                this.taskcenterIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
-        public string ClientTxSeq
-        {
-            get
-            {
-                return this.clientTxSeqField;
-            }
-            set
-            {
-                this.clientTxSeqField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
-        public string TaskKindCode
-        {
-            get
-            {
-                return this.taskKindCodeField;
-            }
-            set
-            {
-                this.taskKindCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
-        public string AppCode
-        {
-            get
-            {
-                return this.appCodeField;
-            }
-            set
-            {
-                this.appCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
         public string ActionUrl
         {
             get
@@ -281,90 +219,60 @@ namespace TaskCenterService
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
-        public string TaskStep
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public bool IsSupport
         {
             get
             {
-                return this.taskStepField;
+                return this.isSupportField;
             }
             set
             {
-                this.taskStepField = value;
+                this.isSupportField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
-        public string Creator
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public int SupportType
         {
             get
             {
-                return this.creatorField;
+                return this.supportTypeField;
             }
             set
             {
-                this.creatorField = value;
+                this.supportTypeField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=12)]
-        public string CreatorName
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public string TaskKindCode
         {
             get
             {
-                return this.creatorNameField;
+                return this.taskKindCodeField;
             }
             set
             {
-                this.creatorNameField = value;
+                this.taskKindCodeField = value;
             }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=13)]
-        public string ActionUrl2
-        {
-            get
-            {
-                return this.actionUrl2Field;
-            }
-            set
-            {
-                this.actionUrl2Field = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public enum TaskType
-    {
-        
-        /// <remarks/>
-        ToDo,
-        
-        /// <remarks/>
-        Done,
-        
-        /// <remarks/>
-        Expired,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="Search", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class SearchRequest
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SearchTasks", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SearchTasksRequest
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
         public string userUid;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
-        public TaskCenterService.TaskType taskType;
+        public string pwd;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
         public int pageIndex;
@@ -373,35 +281,39 @@ namespace TaskCenterService
         public int pageSize;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=4)]
-        public string taskKindCode;
+        public bool isToDoTask;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=5)]
-        public string taskSource;
+        public string taskKindCode;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=6)]
-        public string searchKey;
+        public string taskSource;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=7)]
-        public string searchCreator;
+        public string searchKey;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=8)]
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> startDay;
+        public string searchCreator;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=9)]
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<System.DateTime> startDay;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=10)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public System.Nullable<System.DateTime> endDay;
         
-        public SearchRequest()
+        public SearchTasksRequest()
         {
         }
         
-        public SearchRequest(string userUid, TaskCenterService.TaskType taskType, int pageIndex, int pageSize, string taskKindCode, string taskSource, string searchKey, string searchCreator, System.Nullable<System.DateTime> startDay, System.Nullable<System.DateTime> endDay)
+        public SearchTasksRequest(string userUid, string pwd, int pageIndex, int pageSize, bool isToDoTask, string taskKindCode, string taskSource, string searchKey, string searchCreator, System.Nullable<System.DateTime> startDay, System.Nullable<System.DateTime> endDay)
         {
             this.userUid = userUid;
-            this.taskType = taskType;
+            this.pwd = pwd;
             this.pageIndex = pageIndex;
             this.pageSize = pageSize;
+            this.isToDoTask = isToDoTask;
             this.taskKindCode = taskKindCode;
             this.taskSource = taskSource;
             this.searchKey = searchKey;
@@ -414,31 +326,31 @@ namespace TaskCenterService
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SearchResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class SearchResponse
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SearchTasksResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SearchTasksResponse
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public TaskCenterService.SplitPageResultOfTW_TaskEntity SearchResult;
+        public TaskCenterService.MuMobileTaskEntityResult SearchTasksResult;
         
-        public SearchResponse()
+        public SearchTasksResponse()
         {
         }
         
-        public SearchResponse(TaskCenterService.SplitPageResultOfTW_TaskEntity SearchResult)
+        public SearchTasksResponse(TaskCenterService.MuMobileTaskEntityResult SearchTasksResult)
         {
-            this.SearchResult = SearchResult;
+            this.SearchTasksResult = SearchTasksResult;
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    public interface QueryTasksSoapChannel : TaskCenterService.QueryTasksSoap, System.ServiceModel.IClientChannel
+    public interface ServiceSoapChannel : TaskCenterService.ServiceSoap, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    public partial class QueryTasksSoapClient : System.ServiceModel.ClientBase<TaskCenterService.QueryTasksSoap>, TaskCenterService.QueryTasksSoap
+    public partial class ServiceSoapClient : System.ServiceModel.ClientBase<TaskCenterService.ServiceSoap>, TaskCenterService.ServiceSoap
     {
         
     /// <summary>
@@ -448,67 +360,73 @@ namespace TaskCenterService
     /// <param name="clientCredentials">客户端凭据</param>
     static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
         
-        public QueryTasksSoapClient(EndpointConfiguration endpointConfiguration) : 
-                base(QueryTasksSoapClient.GetBindingForEndpoint(endpointConfiguration), QueryTasksSoapClient.GetEndpointAddress(endpointConfiguration))
+        public ServiceSoapClient(EndpointConfiguration endpointConfiguration) : 
+                base(ServiceSoapClient.GetBindingForEndpoint(endpointConfiguration), ServiceSoapClient.GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public QueryTasksSoapClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
-                base(QueryTasksSoapClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+        public ServiceSoapClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
+                base(ServiceSoapClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public QueryTasksSoapClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(QueryTasksSoapClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        public ServiceSoapClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(ServiceSoapClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public QueryTasksSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public ServiceSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress)
         {
         }
         
-        public System.Threading.Tasks.Task<TaskCenterService.SplitPageResultOfTW_TaskEntity> QueryDoneListAsync(string userUid, int pageIndex, int pageSize, string taskKindCode)
+        public System.Threading.Tasks.Task<string> QueryEncryptedBteUrlAsync(string userUid, string pwd, string bteUrl)
         {
-            return base.Channel.QueryDoneListAsync(userUid, pageIndex, pageSize, taskKindCode);
+            return base.Channel.QueryEncryptedBteUrlAsync(userUid, pwd, bteUrl);
         }
         
-        public System.Threading.Tasks.Task<TaskCenterService.SplitPageResultOfTW_TaskEntity> QueryAsync(string userUid, int pageIndex, int pageSize, string taskKindCode)
+        public System.Threading.Tasks.Task<TaskCenterService.MuMobileTaskEntityResult> SearchTasksNewAsync(string userUid, string pwd, int pageIndex, int pageSize, bool isToDoTask, string taskKindCode, string taskSource, string searchKey, string searchCreator, string startDay, string endDay)
         {
-            return base.Channel.QueryAsync(userUid, pageIndex, pageSize, taskKindCode);
-        }
-        
-        public System.Threading.Tasks.Task<TaskCenterService.SplitPageResultOfTW_TaskEntity> QueryMergedToDoListAsync(string userUid, int pageIndex, int pageSize, string taskKindCode)
-        {
-            return base.Channel.QueryMergedToDoListAsync(userUid, pageIndex, pageSize, taskKindCode);
+            return base.Channel.SearchTasksNewAsync(userUid, pwd, pageIndex, pageSize, isToDoTask, taskKindCode, taskSource, searchKey, searchCreator, startDay, endDay);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<TaskCenterService.SearchResponse> TaskCenterService.QueryTasksSoap.SearchAsync(TaskCenterService.SearchRequest request)
+        System.Threading.Tasks.Task<TaskCenterService.SearchTasksResponse> TaskCenterService.ServiceSoap.SearchTasksAsync(TaskCenterService.SearchTasksRequest request)
         {
-            return base.Channel.SearchAsync(request);
+            return base.Channel.SearchTasksAsync(request);
         }
         
-        public System.Threading.Tasks.Task<TaskCenterService.SearchResponse> SearchAsync(string userUid, TaskCenterService.TaskType taskType, int pageIndex, int pageSize, string taskKindCode, string taskSource, string searchKey, string searchCreator, System.Nullable<System.DateTime> startDay, System.Nullable<System.DateTime> endDay)
+        public System.Threading.Tasks.Task<TaskCenterService.SearchTasksResponse> SearchTasksAsync(string userUid, string pwd, int pageIndex, int pageSize, bool isToDoTask, string taskKindCode, string taskSource, string searchKey, string searchCreator, System.Nullable<System.DateTime> startDay, System.Nullable<System.DateTime> endDay)
         {
-            TaskCenterService.SearchRequest inValue = new TaskCenterService.SearchRequest();
+            TaskCenterService.SearchTasksRequest inValue = new TaskCenterService.SearchTasksRequest();
             inValue.userUid = userUid;
-            inValue.taskType = taskType;
+            inValue.pwd = pwd;
             inValue.pageIndex = pageIndex;
             inValue.pageSize = pageSize;
+            inValue.isToDoTask = isToDoTask;
             inValue.taskKindCode = taskKindCode;
             inValue.taskSource = taskSource;
             inValue.searchKey = searchKey;
             inValue.searchCreator = searchCreator;
             inValue.startDay = startDay;
             inValue.endDay = endDay;
-            return ((TaskCenterService.QueryTasksSoap)(this)).SearchAsync(inValue);
+            return ((TaskCenterService.ServiceSoap)(this)).SearchTasksAsync(inValue);
+        }
+        
+        public System.Threading.Tasks.Task<TaskCenterService.MuMobileTaskEntityResult> QueryToDoTasksAsync(string userUid, string pwd, int pageIndex, int pageSize)
+        {
+            return base.Channel.QueryToDoTasksAsync(userUid, pwd, pageIndex, pageSize);
+        }
+        
+        public System.Threading.Tasks.Task<TaskCenterService.MuMobileTaskEntityResult> QueryDoneTasksAsync(string userUid, string pwd, int pageIndex, int pageSize)
+        {
+            return base.Channel.QueryDoneTasksAsync(userUid, pwd, pageIndex, pageSize);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -523,7 +441,7 @@ namespace TaskCenterService
         
         private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.QueryTasksSoap))
+            if ((endpointConfiguration == EndpointConfiguration.ServiceSoap))
             {
                 System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
@@ -532,7 +450,7 @@ namespace TaskCenterService
                 result.AllowCookies = true;
                 return result;
             }
-            if ((endpointConfiguration == EndpointConfiguration.QueryTasksSoap12))
+            if ((endpointConfiguration == EndpointConfiguration.ServiceSoap12))
             {
                 System.ServiceModel.Channels.CustomBinding result = new System.ServiceModel.Channels.CustomBinding();
                 System.ServiceModel.Channels.TextMessageEncodingBindingElement textBindingElement = new System.ServiceModel.Channels.TextMessageEncodingBindingElement();
@@ -550,13 +468,13 @@ namespace TaskCenterService
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.QueryTasksSoap))
+            if ((endpointConfiguration == EndpointConfiguration.ServiceSoap))
             {
-                return new System.ServiceModel.EndpointAddress("http://taskcenter.ceair.com/QueryTasks.asmx");
+                return new System.ServiceModel.EndpointAddress("http://btetingyun.ceair.com/service/service.asmx");
             }
-            if ((endpointConfiguration == EndpointConfiguration.QueryTasksSoap12))
+            if ((endpointConfiguration == EndpointConfiguration.ServiceSoap12))
             {
-                return new System.ServiceModel.EndpointAddress("http://taskcenter.ceair.com/QueryTasks.asmx");
+                return new System.ServiceModel.EndpointAddress("http://btetingyun.ceair.com/service/service.asmx");
             }
             throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
@@ -564,9 +482,9 @@ namespace TaskCenterService
         public enum EndpointConfiguration
         {
             
-            QueryTasksSoap,
+            ServiceSoap,
             
-            QueryTasksSoap12,
+            ServiceSoap12,
         }
     }
 }
